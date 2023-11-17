@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Project;
+use App\Models\Technology;
+use App\Models\Type;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +19,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('project', function () {
+    return response()->json([
+        'success' => true,
+        'result' => Project::all()
+    ]);
+});
+
+Route::get('type', function () {
+    return response()->json([
+        'success' => true,
+        'result' => Type::all(),
+    ]);
+});
+
+Route::get('technologies', function () {
+    return response()->json([
+        'success' => true,
+        'result' => Technology::all(),
+    ]);
 });
