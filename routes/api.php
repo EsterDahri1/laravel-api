@@ -1,10 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Project;
-use App\Models\Technology;
-use App\Models\Type;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,23 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('project', function () {
-    return response()->json([
-        'success' => true,
-        'result' => Project::all()
-    ]);
-});
 
-Route::get('type', function () {
-    return response()->json([
-        'success' => true,
-        'result' => Type::all(),
-    ]);
-});
+Route::get('/projects', [ProjectController::class, 'projects']);
 
-Route::get('technologies', function () {
-    return response()->json([
-        'success' => true,
-        'result' => Technology::all(),
-    ]);
-});
+Route::get('/types', [ProjectController::class, 'types']);
+
+Route::get('/technologies', [ProjectController::class, 'technologies']);
