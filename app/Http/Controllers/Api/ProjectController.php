@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
-use App\Models\Type;
-use App\Models\Technology;
 
 class ProjectController extends Controller
 {
@@ -16,23 +14,24 @@ class ProjectController extends Controller
 
         return response()->json([
             'success' => true,
-            'result' => Project::all()
+            'result' => Project::all(),
         ]);
     }
 
-    public function type()
+    public function show($slug)
     {
-        return response()->json([
-            'success' => true,
-            'result' => Type::all(),
-        ]);
-    }
+        $project = Project::with(['type', 'technologies'])->where('slug', $slug)->first();
 
-    public function technologies()
-    {
-        return response()->json([
-            'success' => true,
-            'result' => Technology::all(),
-        ]);
+        if ($project) {
+            return response()->json([
+                'success' => true,
+                'result' => $project
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'result' => 'Page not found'
+            ]);
+        }
     }
 }
