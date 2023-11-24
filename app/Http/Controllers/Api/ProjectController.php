@@ -14,7 +14,7 @@ class ProjectController extends Controller
 
         return response()->json([
             'success' => true,
-            'result' => Project::all(),
+            'result' => Project::paginate(5),
         ]);
     }
 
